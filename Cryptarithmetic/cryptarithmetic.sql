@@ -1,6 +1,4 @@
-
-<!-- saved from url=(0060)http://ehotinger.com/sql/Cryptarithmetic/cryptarithmetic.txt -->
-<html><script id="tinyhippos-injected">if (window.top.ripple) { window.top.ripple("bootstrap").inject(window, document); }</script><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><style type="text/css"></style></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">SELECT S.num, E.num, N.num, D.num, M.num, O.num, R.num, Y.num 
+SELECT S.num, E.num, N.num, D.num, M.num, O.num, R.num, Y.num 
 FROM nums as S, nums as E, nums as N, nums as D, nums as M, nums as O, nums as R, nums as Y 
 WHERE M.num = 1
 AND S.num * 1000 + E.num * 100 + N.num * 10 + D.num + M.num * 
