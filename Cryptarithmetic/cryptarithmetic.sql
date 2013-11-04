@@ -10,4 +10,4 @@ AND S.num != N.num AND S.num != D.num AND S.num != O.num AND S.num != R.num
 AND S.num != Y.num AND E.num != N.num AND E.num != D.num AND E.num != O.num 
 AND E.num != R.num AND E.num != Y.num AND N.num != D.num AND N.num != O.num 
 AND N.num != R.num AND N.num != Y.num AND D.num != O.num AND D.num != R.num 
-AND D.num != Y.num AND O.num != R.num AND O.num != Y.num AND R.num != Y.num;</pre></body></html>
+AND D.num != Y.num AND O.num != R.num AND O.num != Y.num AND R.num != Y.num;
