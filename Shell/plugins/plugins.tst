@@ -1,0 +1,4 @@
+= Plugin Tests
+1 group302_factorial.py
+1 group302_circle_area.py
+1 group302_pascal.py

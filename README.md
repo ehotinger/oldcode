@@ -8,7 +8,6 @@ A list of what's in here:
 - AES (Advanced Encryption Standard) in Java
 - BAC Calculator (Android App) in Java
 - Word Ladders in C
-- Cryparithmetic in SQL
 - DNA Tree Data Structure in Java
 - Heapsort for binary files with a LRU Buffer in Java
 - Hodgepodge of PHP functions
@@ -17,3 +16,4 @@ A list of what's in here:
 - Polynomial GCD in Java
 - Substitution Permutation Network in Java
 - Word Ladders in Java
+- Extensible Shell in C

@@ -1,0 +1,15 @@
+The circle_area esh plug-in
+-------------------------
+
+The 'circle_area' plug-in will calculate a circle's area given a radius.
+
+Simply type 'circlearea #' to invoke the plugin.
+
+Ex:
+esh> circlearea 9
+The circle's area is 254.
+
+Note that the circlearea function will round to integers.
+
+If you have questions regarding the usage of this plugin, feel free to contact
+Eric Hotinger (erichot@vt.edu) or Trevor Senior (tms@vt.edu)

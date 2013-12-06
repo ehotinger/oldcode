@@ -1,0 +1,3 @@
+The plugins.tst file contains the paths to all of the individual plugins for testing.
+
+To add more plugins, add 'em in the plugins.tst file.

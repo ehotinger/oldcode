@@ -1,0 +1,13 @@
+The factorial esh plug-in
+-------------------------
+
+The 'factorial' plug-in will calculate the factorial of a number.
+
+Simply type 'factorial #' to invoke the plugin.
+
+Ex:
+esh> factorial 3
+The factorial is 6.
+
+If you have questions regarding the usage of this plugin, feel free to contact
+Eric Hotinger (erichot@vt.edu) or Trevor Senior (tms@vt.edu)

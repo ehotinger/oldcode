@@ -1,0 +1,128 @@
+-----------------------------------------------------------
+-	Student Information
+-----------------------------------------------------------
+Eric Hotinger - erichot		| 905535870
+Trevor Senior - tms			| 905549633
+
+-----------------------------------------------------------
+-	How to execute the shell
+-----------------------------------------------------------
+- Run the "make" command
+- Plugins should be inside /plugins/
+- The advanced.tst must be in /advanced/ and the advanced tests must be in /advanced/
+alongside the advanced.tst
+
+- There should be no problems during normal compilation.
+
+
+-----------------------------------------------------------
+-	Important Notes
+-----------------------------------------------------------
+- There are no important notes about the shell.
+
+- All tests (basic/advanced/plugins) pass.  HOWEVER, some advanced tests time out on the server sometimes.
+Please re-run these tests multiple times to assure yourselves that they do in fact work.
+
+- If at any time a test fails, please make sure that the test is not simply timing out for
+odd reasons. We've had this happen numerous times in the past, but all the tests work.
+
+This mostly occurs with advanced testing (io_append_test.py and exclusive_access_test.py)
+but there may be extenuating circumstances.
+
+In fact, exclusive_access_test.py has a nasty habit of timing out when we tested
+our cases in the systems lab.  If it fails out, please run several more times
+to be convinced that it DOES actually work. Thanks!
+Same goes with io_append_test.  We are unsure why/how they are timing out; it may be
+the manner in which we are testing them, but it is unlikely.
+
+- ALL advanced tests must be included alongside advanced.tst.
+	=> E.g., advanced.tst should be in the same folder with
+	   'single_pipe_test.py', 'multi_pipe_test.py', ...
+
+- See below in our description of Extended Functionality
+to see our aliases and process of how we went about testing
+our shell's functionality.
+
+- Lastly, Dr. Back's provided sample plugins (cd.c and prompt.c) like to crash our program because
+of double inclusions for header files.  We didn't bother doing #ifndef to resolve this because
+we'd rather write our own plugins instead.
+They're innate to SVN and we can't remove them; if you guys decide to use a copy of our 
+turned in SVN code, remove cd.c and prompt.c before a "make," otherwise you'll get problems
+from the double include files.
+
+
+-----------------------------------------------------------
+-	Description of Base Functionality
+-----------------------------------------------------------
+- 'jobs' displays a list of the currently running and stopped jobs.
+- 'fg' brings a job from the BG to the FG and gives the correlated
+process group terminal access.		
+- 'bg' continues a stopped job.					(SIGCONT)
+- 'kill' kills a job.							(SIGKILL)
+- 'stop' stops a job.							(SIGSTOP)
+- 'fg' 'bg' 'kill' and 'stop' take JIDs as arguments.  If no argument
+is provided, they will affect the last addition
+to the current jobs list.
+- CTRL-C (^C) interrupts the job in the FG.		(SIGINT)
+- CTRL-Z (^Z) stops the job in the FG.			(SIGSTOP)
+
+
+-----------------------------------------------------------
+-	Description of Extended Functionality
+-----------------------------------------------------------
+- I/O Redirection changes the stdin/stdout source from or to a file.
+- I/O Redirection works just like in the terminal using the '<' or '>' keywords.
+- Appending works with the '>>' keyword.
+	=> Ex: "echo -n banana >> fruit" appends 'banana' to the 'fruit' file
+
+- Pipes direct the stdout of a particular process into the stdin of
+another process.
+
+- Exclusive access allows a FG process to have exclusive access
+(such as vim).
+
+- We included an 'exit' command for convenience.  In our implementation
+of plugins, if you run a plugin, the plugin will stay as a 'Foreground'
+process until it is killed or you use the 'exit' command in the shell.
+As an example, if I use my factorial plugin 3 times, I will have 3 active jobs
+listed in my current jobs list.  This can appear a bit funky because
+you have to CTRL C and send 3 SIGINTs to remove them when it feels like just
+one CTRL C should do the trick.  According to TAs, this is fine though.
+
+- Note about our tests for basic, advanced, and plugin functionality:
+	=> We made several aliases in order to facilitate the testing process.
+	=> For your conveniece, we have listed them below with a short description.
+	=> If you want, this could speed up the process, or at the very least,
+	it should provide some insight on the testing procedures we used
+	throughout the creation of the shell.
+
+alias testa="python /home/courses/cs3214/bin/stdriver.py advanced/advanced.tst"
+alias testb="python /home/courses/cs3214/bin/stdriver.py -b"
+alias testc="python /home/courses/cs3214/bin/stdriver.py plugins/plugins.tst"
+
+-----------------------------------------------------------
+-	List of Plugins Implemented
+-----------------------------------------------------------
+
+Written by us:
+
+	1. Plugin name: factorial
+
+	Description: 
+		<factorial> <#> outputs the factorial of the
+		specified number.  Any number above 32 or below 0 will be
+		ignored and a specific error message will be output.
+
+	2. Plugin name: circle_area
+
+	Description:
+		<circlearea> <#> outputs the circle area of the specified radius.
+
+	3. Plugin name: pascal
+		<pascal> <#> outputs Pascal's triangle up to the specified number.
+		Any number above 22 will be ignored (long caps out at this point).
+
+
+
+(Written by Others)
+		None yet.

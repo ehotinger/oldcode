@@ -1,0 +1,27 @@
+The pascal esh plug-in
+-------------------------
+
+The 'pascal' plug-in will print out pascal's triangle for a specified number less than 22.
+If you put in a number >= 23, a long will cap out its max value -- so we threw in an error message.
+
+Simply type 'pascal #' to invoke the plugin.
+
+Ex:
+esh> pascal 1
+1 
+esh> pascal 2
+ 1 
+1 1 
+esh> pascal 3
+  1 
+ 1 1 
+1 2 1 
+esh> pascal 5
+    1 
+   1 1 
+  1 2 1 
+ 1 3 3 1 
+1 4 6 4 1 
+
+If you have questions regarding the usage of this plugin, feel free to contact
+Eric Hotinger (erichot@vt.edu) or Trevor Senior (tms@vt.edu)
