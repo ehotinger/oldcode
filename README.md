@@ -17,3 +17,4 @@ A list of what's in here:
 - Substitution Permutation Network in Java
 - Word Ladders in Java
 - Extensible Shell in C
+- SMTP Automation in Batch & Visual Basic Script
