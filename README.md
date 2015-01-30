@@ -13,6 +13,7 @@ A list of what's in here:
 - Heapsort for binary files with a LRU Buffer in Java
 - Hodgepodge of PHP functions
 - Lights Camera Action (GUI components such as light sources, cameras, etc) in Java
+- Recursive Descent Parser in C
 - Photomapper (GPS photo android app) in Java
 - Polynomial GCD in Java
 - Scheme Binary Search
