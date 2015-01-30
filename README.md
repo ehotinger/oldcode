@@ -8,6 +8,7 @@ A list of what's in here:
 - AES (Advanced Encryption Standard) in Java
 - BAC Calculator (Android App) in Java
 - DNA Tree Data Structure in Java
+- ehotinger.com (my first personal website) in PHP
 - Extensible Shell in C
 - Genealogy program in Prolog
 - Heapsort for binary files with a LRU Buffer in Java

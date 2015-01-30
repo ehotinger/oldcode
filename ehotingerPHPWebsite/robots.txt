@@ -1,0 +1,17 @@
+# Hi. I'm Eric Hotinger.
+
+# 80legs
+User-agent: 008
+Disallow: /
+
+User-Agent: bender
+Disallow: /my_shiny_metal_ass
+
+User-agent: *
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+Disallow: /cpanel/
+
+# MSNBot
+User-Agent: msnbot
+Crawl-Delay: 20
