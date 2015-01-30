@@ -1,7 +1,7 @@
 Old Code
 ========
 
-Old, potentially crap code I've written in the past at some point or another.
+This repository contains many other old repositories, mostly from my college days at Virginia Tech. I'm sure most of the code is bad, but maybe some of it is of use to someone.
 
 A list of what's in here:
 
@@ -11,6 +11,7 @@ A list of what's in here:
 - DNA Tree Data Structure in Java
 - Heapsort for binary files with a LRU Buffer in Java
 - Hodgepodge of PHP functions
+- Genealogy program in Prolog
 - Lights Camera Action (GUI components such as light sources, cameras, etc) in Java
 - Photomapper (GPS photo android app) in Java
 - Polynomial GCD in Java

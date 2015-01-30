@@ -1,0 +1,11 @@
+% Eric Hotinger
+
+[consult].
+
+% find all great aunts of harry
+findall(X, greataunt(X, harry), Great_Aunts).
+
+% find the great aunt of harry
+greataunt(Great_Aunt, harry).
+
+halt.
