@@ -15,9 +15,6 @@ automation.py -n United States of Pop 2013 by DJ Earworm -t Music Remix Pop -c M
 -c specifies which category this post should fall under "All"
 ```
 
-
-Just be forewarned: you'll need to get soupy to run the Python script.  Don't be 'fraid though, just remember the sauce is boss.
-
 ```
 $ pip install beautifulsoup4
 ```
