@@ -1,0 +1,20 @@
+<% provide(:title, 'Groups') %>
+
+<section id="groups">
+	<div class="row">
+		<div class="col-lg-12">
+		<h3>Groups</h3>
+		<hr>
+
+			<p>Variant Chef supports <%= get_total_groups %> which are home to <%= get_total_group_members %>.</p>
+		
+			<p>By creating a group and managing its members, you're able to easily keep track of all your friends' recipes!</p>
+			
+			<p> <%= link_to "Create a Group", new_group_path, class: 'btn btn-large btn-primary' %>
+
+				<%= link_to "View all Groups", groups_path, class: 'btn btn-large btn-info' %>
+			</p>
+				
+		</div>
+	</div>
+</section>

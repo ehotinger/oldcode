@@ -1,0 +1,161 @@
+<% provide(:title, "Viewing #{@user.full_name}'s' profile") %>
+
+<div class="row">
+	<div class="col-lg-2 col-lg-offset-1">
+		<div class="row">
+
+			<% if @user.avatar? %>
+				<%= image_tag @user.avatar.url(:small), class: 'img-thumbnail' %>
+			<% else %>
+              	<%= image_tag 'missing.png', class: 'img-thumbnail' %>
+			<% end %>
+
+		  	<h1 class="profile-names">
+		  		<%= content_tag(:span, @user.full_name, :class => 'profile-fullname', :title => @user.full_name) %>
+		  		<%= content_tag(:span, @user.user_name, :class => 'profile-username', :title => @user.user_name) %>
+
+		  		<% unless current_user == @user %>
+		  		  <div id="follow_form">
+		  		  <% if user_signed_in? %>
+			  		  <% if current_user.following?(@user) %>
+			  		    <%= render 'unfollow' %>
+			  		  <% else %>
+			  		    <%= render 'follow' %>
+			  		  <% end %>
+			  	  <% end %>
+		  		  </div>
+		  		<% end %>
+		  	</h1>
+
+			<ul class="list-unstyled profile-details">
+				<% if @user.groups.count > 0 || @user == current_user %>
+					<li class="profile-detail">
+					  	<span class="glyphicon glyphicon-user" title="Groups"></span>
+
+					  	<% if @user.groups.count > 0 %>
+					  		<ul class="list-unstyled">
+						  	<% @user.groups.each do |t| %>
+						  		<li><%= link_to t.title, group_path(t) %></li>
+						  	<% end %>
+						  	</ul>
+
+					   	<% else %>
+				  			<%= link_to "Create a Group!", new_group_path, class: 'btn btn-xs btn-primary' %>
+				  		<% end %>
+
+					</li>
+			  	<% end %>	
+
+			  	<li class="profile-detail">
+			  		<span class="glyphicon glyphicon-envelope" title="Send an e-mail"></span>
+			  		<%= link_to @user.email, mail_to_format(@user.email) %>
+			  	</li>
+
+			  	<li class="profile-detail">
+					<span class="glyphicon glyphicon-time" title="Join date"></span>
+			  		<%= 'Joined on ' + @user.created_at.strftime("%b %d, %Y") %>
+			  	</li>
+				
+				<% if current_user == @user %>
+			  	<li class="profile-detail">
+					<span class="glyphicon glyphicon-wrench" title="Edit preferences"></span>
+					<%= link_to 'Edit Preferences', edit_user_registration_path, :title => 'Edit Your Preferences' %>
+			  	</li>
+			  	<% end %>
+			</ul>
+
+			<div class="profile-stats">
+				<%= link_to user_favorites_path(@user.user_name), :class => 'profile-stat', :title => 'Favorites' do %>
+					<strong class="profile-stat-counter"><%= @user.favorite_recipes.count %></strong>
+					favorites
+				<% end %>
+
+				<%= link_to user_following_path(@user.user_name), :class => 'profile-stat', :title => 'Following' do %>
+					<strong class="profile-stat-counter followed-count"><%= @user.followed_users.count %></strong>
+					following
+				<% end %>
+
+	          	<%= link_to user_followers_path(@user.user_name), :class => 'profile-stat', :title => 'Followers' do %>
+	          		<strong class="profile-stat-counter followers-count"><%= @user.followers.count %></strong>
+	          		followers
+	          	<% end %>
+	        </div>
+
+	        <% if user_signed_in? && current_user != @user %>
+		        	<div class="profile-info-header">Ever wondered just how much of a <b>Variant Chef</b> you are compared to <%= @user.full_name %>?</div>
+
+		        	<div class="profile-info-header-subtext">
+	        			It looks like you share 
+	        			<%= link_to get_shared_favorites_format(current_user, @user), '#' %> 
+	        			together, follow the same 
+	        			<%= link_to get_shared_following_format(current_user, @user), '#' %> 
+	        			, and have the same
+	        			<%= link_to get_shared_followers_format(current_user, @user) + '.', '#' %>
+		        	</div>
+	    	<% end %>
+
+		</div>
+	</div>
+	
+	<% if @user.recipes.present? %>
+	<div class="col-lg-9">
+		<div class="recipes-wrapper">
+			<div class="recipes">
+				<ul class="recipes-list">
+				<% @user.popular_recipes.each do |r| %>
+					<li>
+						<div class="recipe">
+							<div class="recipe-content">
+								<div class="recipe-image">
+									<% if r.recipe_assets.count > 0 %>
+										<% r.recipe_assets.take(1).each do |a| %>
+											<%= link_to user_recipe_path(r.user.user_name, r) do %>
+											<%= image_tag a.picture.url(:medium), :alt => 'Missing Picture' %>
+											<% end %>
+										<% end %>	
+
+									<% else %>
+										<%= link_to user_recipe_path(r.user.user_name, r) do %>
+											<%= image_tag 'missing-recipe.png' %>
+										<% end %>
+									<% end %>
+								</div>
+
+								<div class="recipe-info">
+									<div class="recipe-title"><%= content_tag(:span, r.title) %></div>
+
+									<div class="recipe-description">
+										<%= content_tag(:span, r.short_description, :class => 'truncate') %>
+									</div>
+								</div>
+
+								<div class="recipe-stats">
+					    			<span class="glyphicon glyphicon-heart"></span>
+									<span><%= r.favorited_by.count %></span>
+					  			</div>
+					  		</div>
+				  		</div>
+		    		</li>
+				<% end %>
+				</ul>
+			</div>
+			<div class="clearfix"></div>
+	</div>
+
+		
+	</div>
+
+	<% else %>
+		<% if current_user == @user %>
+			<div class="col-lg-9 bg-info">
+				<p>You have no recipes yet. Click <%= link_to 'here', new_recipe_path %> to get started.</p>
+			</div>
+		<% else %>
+			<div class="col-lg-9 bg-info">
+				<p>It looks like <%= @user.full_name %> has no recipes for now.</p>
+				<p>Check out the <%= link_to 'home page', root_path %> for more delicious food.</p>
+			</div>
+		<% end %>
+		
+	<% end %>
+</div>

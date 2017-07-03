@@ -1,0 +1,36 @@
+<section id="followers">
+	<% if @user.followers. count > 0  %>
+		<ul class="media-list">
+		<% @user.followers.each do |f| %>		
+
+			<li class="media">		    
+				<% if f.avatar? %>
+					<%= link_to user_path(f), class: 'pull-left' do %>
+						<%= image_tag f.avatar.url(:small), class: 'media-object follow-avatar-image img-thumbnail' %>
+					<% end %>
+				<% else %>
+					<%= link_to user_path(f), class: 'pull-left' do %>
+						<%= image_tag 'missing.png', class: 'media-object img-thumbnail follow-avatar-image', alt: 'Missing User Avatar' %>
+					<% end %>
+				<% end %>
+			  
+			  <div class="media-body">
+			    <h4 class="media-heading"><%= link_to f.slug, user_path(f.slug) %></h4>
+    	    	<% if f.recipes.count > 0 %>
+    	    		<ul>
+    		    		<% f.popular_recipes.limit(3).each do |r| %>
+    		    			<li class="uppercase small"><%= link_to r.title, user_recipe_path(f, r) %></li>
+    	    			<% end %>
+        			</ul>
+    			<% else %>
+    				<small>No recipes</small>
+    	    	<% end %>
+			  </div>
+			</li>
+		<% end %>
+		</ul>
+
+	<% else %>
+		<div class="bg-warning"><%= @user.full_name + ' has no followers.' %></div>
+	<% end %>
+</section>

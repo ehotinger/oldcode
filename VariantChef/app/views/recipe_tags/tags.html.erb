@@ -1,0 +1,60 @@
+<section id="list-tags">
+	<div class="row">
+		<div class="col-lg-6">
+			<% if @recipe.recipe_tags.count > 0 %>
+				<div class="panel panel-primary">
+				    <div class="panel-heading">
+				    	<%= "Tags for #{@recipe.title}" %>
+				    </div>
+				    
+				    <table class="table">
+				        <tbody>
+				        <% @recipe.recipe_tags.each do |t| %>
+					        <tr>
+					        	<td>
+					        	<%= link_to recipe_tag_path(t.title), :class => 'no-text-decoration' do %>
+					        		<%= content_tag :span, t.title, :title => "Find recipes tagged as #{t.title}", :class => 'recipe-tag' %>
+					        	<% end %>					        		
+					        	</td>
+
+					        	<td>
+					        		<%= link_to 'Delete', user_recipe_recipe_tag_path(@user, @recipe, t), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger' %>
+					        	</td>
+					        </tr>
+				        <% end %>
+				        </tbody>
+				    </table>
+				</div>	
+
+			<% else %>
+				<div class="bg-warning">You currently have no tags for this recipe. You should add some!</div>
+				<hr>
+			<% end %>
+
+		</div>
+	</div>
+</section>
+
+<section id="add-recipe-tag">
+	<div class="row">
+		<div class="col-lg-6">
+			<%= form_for @recipe_tag, :url => user_recipe_recipe_tags_path, :html => { :multipart => true } do |f| %>
+
+				<div class="form-group">
+			    	<%= f.label :title, "Add more tags:" %><br />
+			    	<%= f.text_field :title, placeholder: 'Tag name', autofocus: true, class: 'form-control' %>
+			  	</div>
+
+			  	<div class="form-group">
+			  		<%= f.submit "Add Tag!", class: 'btn btn-large btn-primary' %>
+			  	</div>
+			<% end %>
+
+			<div id="go-back-to-recipe-btn">
+			  <%= link_to "Go back to the recipe's details", user_recipe_path(@user.slug, @recipe.slug), class: 'btn btn-xs btn-info' %>
+			  <i>Any changes will not be saved</i>
+			</div>
+
+		</div>
+	</div>
+</section>

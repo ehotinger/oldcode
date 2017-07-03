@@ -1,0 +1,30 @@
+<% provide(:title, "All Groups") %>
+
+<section id="all-groups">
+  <div class="panel panel-primary">
+      <div class="panel-heading">All Groups</div>
+      
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Number of Chefs</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @groups.each do |g| %>
+            <tr>
+              <td><%= link_to g.title, group_path(g), title: "Go to the #{g.title} group page" %></td>
+              <td><%= g.description %></td>
+              <td><%= g.memberships.count %></td>
+            </tr>
+          <% end %>
+
+        </tbody>
+      </table>
+  </div>
+
+  <p><%= link_to "Create a Group", new_group_path, class: 'btn btn-large btn-primary' %></p>
+</section>

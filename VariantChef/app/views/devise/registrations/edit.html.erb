@@ -1,0 +1,62 @@
+<% provide(:title, 'Edit Preferences') %>
+
+<section id="edit-preferences">
+  <%= devise_error_messages! %>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+
+      <fieldset>
+        <legend>Edit Preferences</legend>
+
+        <div class="form-group">
+          <%= f.label :first_name %>
+          <%= f.text_field :first_name, placeholder: 'First Name', class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :last_name %>
+          <%= f.text_field :last_name, placeholder: 'Last Name', class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :current_password, "Current Password*" %>
+          <%= f.password_field :current_password, placeholder: 'Current Password', class: 'form-control', autocomplete: "off" %>
+          <small class="text-danger">*Required</small>
+        </div>
+
+        <div class="form-group">
+          <%= f.label 'New Password' %>
+          <%= f.password_field :password, placeholder: 'New Password', class: 'form-control', autocomplete: "off" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label 'Confirm new password' %>
+          <%= f.password_field :password_confirmation, placeholder: 'Confirm new password', class: 'form-control', autocomplete: "off" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label 'Current Avatar:' %>
+
+          <% if current_user.avatar? %>
+              <%= image_tag current_user.avatar.url(:small), class: 'img-rounded', alt: "#{current_user.full_name}'s avatar" %>
+          <% else %>
+              <%= image_tag 'missing.png', class: 'img-rounded', alt: 'Missing user avatar' %>
+          <% end %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label 'Avatar' %>
+          <%= f.file_field :avatar %>
+        </div>
+
+        <div class="form-group">
+          <%= f.submit "Update My Preferences!", class: 'btn btn-primary btn-large btn-block' %>
+        </div>
+      </fieldset>
+
+      <% end %>
+    </div>
+  </div>
+</section>

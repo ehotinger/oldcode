@@ -1,0 +1,6 @@
+<%= form_for(current_user.favorite_recipes.find_by(recipe_id: @recipe.id),
+			 html: { method: :delete },
+             remote: true) do |f| %>
+
+  <%= button_tag "Unfavorite this recipe", class: "btn btn-xs btn-warning" %>
+<% end %>

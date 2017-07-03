@@ -1,0 +1,27 @@
+<section id="forgot-password">
+	<%= devise_error_messages! %>
+
+	<div class="row">
+		<div class="col-lg-12">
+		<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+
+		<fieldset>
+			<legend>Forgot Your Password?</legend>
+
+			<div class="form-group">Enter your e-mail and we'll send you a message to reset your account's credentials.</div>
+
+			<div class="form-group">
+				<%= f.label :email %>
+				<%= f.email_field :email, autofocus: true, placeholder: 'Email', class: 'form-control' %>
+			</div>
+
+			<div class="form-group">
+				<%= f.submit "Send password reset instructions", class: 'btn btn-primary btn-large btn-block' %>
+			</div>
+		</fieldset>		
+		
+		<% end %>
+		</div>
+	</div>
+
+</section>

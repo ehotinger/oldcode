@@ -1,0 +1,31 @@
+<%= form_for(current_user.recipe_comments.build(recipe_id: @recipe.id), remote: false) do |f| %>
+
+  <%= f.hidden_field :recipe_id %>
+
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="form-group">
+        <%= f.label :message, "What do you think about this recipe?" %>
+        <%= f.text_area :message, placeholder: 'This recipe is amazing!', class: 'form-control' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="form-group">
+        <%= button_tag "Comment!", class: "btn btn-sm btn-primary" %>
+      </div>
+    </div>
+  </div>
+  
+<% end %>
+
+<section class="social-media-links">
+
+  <%= content_tag(:div, nil, :class => 'fb-share-button', "data-href" => "#{request.original_url}", "data-type" => "button_count") %>
+  	
+  <a href="https://twitter.com/share" class="twitter-share-button" data-text="Check out this awesome recipe!" data-via="ehotinger" data-hashtags="VariantChef">Tweet</a>
+
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+</section>
