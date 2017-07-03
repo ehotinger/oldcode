@@ -1,4 +1,5 @@
-#VariantChef
+VariantChef
+=============
 
 It’s a social website like Github and Pinterest, but for chefs and cooks to share, discover, and store recipes.
 
@@ -6,7 +7,7 @@ You can create recipes, attach pictures of your fantastical food creations, and 
 
 Other users can “fork” your recipes into their own variations, adding a different ingredient or technique to make it their own!
 
-##Installation:
+## Installation:
 
 ```
 git clone https://github.com/ehotinger/VariantChef.git
@@ -24,11 +25,11 @@ Assuming Ubuntu, you'll want to `export key="value"` an `AWS_ACCESS_KEY_ID`, an 
 
 These are the bare minimum connection points necessary to not only run the application locally, but deploy to production as well.
 
-####Ruby version:
+### Ruby version:
 
 Developed, tested, and deployed in 1.9.3, but anything >= should be fine.
 
-####Managing the Database:
+### Managing the Database:
 
 All you have to do is `rake db:create db:migrate` and you're golden.
 
@@ -37,13 +38,13 @@ By default, the development database will login as root without a password. If y
 You should be able to use `mysql -u root` or `rails dbconsole` to login and then type `use variantchef_development;` to switch on the development database. From there, you can use `show tables;` to browse around the various tables and collect insights from them.
 
 
-####How to run the test suite:
+### How to run the test suite:
 
 ```
 bundle exec rspec spec/
 ```
 
-####Deployment instructions:
+### Deployment instructions:
 
 Using Elastic Beanstalk, it should be straightforward:
 
