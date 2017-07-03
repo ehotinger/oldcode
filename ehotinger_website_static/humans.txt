@@ -1,0 +1,4 @@
+# The human responsible for making this website.
+
+# Team
+    <Eric Hotinger> -- <Software Developer> -- <@ehotinger>
