@@ -1,0 +1,89 @@
+<% provide(:title, "#{@group.title}") %>
+
+<section id="show-group">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="group-show-title">
+				<%= @group.title %>
+				<div class="group-show-short-description">
+					<div>
+						<%= @group.description %>; home to <%= get_group_members(@group) %>.
+					</div>
+
+					<% if current_user == @group.admin %>
+						<div class="group-show-admin">
+							You can edit its information and add new members <%= link_to "here", edit_group_path(@group) %>.
+						</div>
+					<% end %>
+				</div>
+			</div>
+
+			<% if @group.memberships.count > 0 %>
+				<div class="group-list-content">
+					<ul class="media-list">	
+						<li class="media group-show-joined-by">
+							<% @group.memberships.limit(100).each do |u| %>
+								<% if u.user.avatar? %>
+									<%= link_to user_path(u.user), class: 'pull-left' do %>
+										<%= image_tag u.user.avatar.url(:small), title: "Visit #{u.user.full_name}'s profile", class: 'media-object img-thumbnail' %>
+									<% end %>
+									
+								<% else %>
+									<%= link_to user_path(u.user), class: 'pull-left' do %>
+										<%= image_tag 'missing.png', title: "Visit #{u.user.full_name}'s profile", class: 'media-object img-thumbnail' %>
+									<% end %>
+								<% end %>
+							<% end %>
+						</li>
+					</ul>
+				</div>
+			<% end %>
+
+			<% if @recipes %>
+				<div class="recipes-wrapper">
+					<div class="recipes">
+						<ul class="recipes-list">
+						<% @recipes.each do |r| %>
+							<li>
+								<div class="recipe">
+									<div class="recipe-content">
+										<div class="recipe-image">
+											<% if r.recipe_assets.count > 0 %>
+												<% r.recipe_assets.take(1).each do |a| %>
+													<%= link_to user_recipe_path(r.user.slug, r) do %>
+													<%= image_tag a.picture.url(:medium), :alt => 'Missing Picture' %>
+													<% end %>
+												<% end %>	
+
+											<% else %>
+												<%= link_to user_recipe_path(r.user.slug, r) do %>
+													<%= image_tag 'missing-recipe.png' %>
+												<% end %>
+											<% end %>
+										</div>
+
+										<div class="recipe-info">
+											<div class="recipe-title"><%= content_tag(:span, r.title) %></div>
+
+											<div class="recipe-author">
+												<%= link_to r.user.full_name, user_path(r.user.slug), :title => "Visit #{r.user.full_name}'s profile" %>
+											</div>
+										</div>
+
+										<div class="recipe-stats">
+							    			<span class="glyphicon glyphicon-heart"></span>
+											<span><%= r.favorited_by.count %></span>
+							  			</div>
+							  		</div>
+						  		</div>
+				    		</li>
+						<% end %>
+						</ul>
+					</div>
+				</div>
+
+				<div class="clearfix"></div>
+			<% end %>
+		</div>
+	</div>
+</section>

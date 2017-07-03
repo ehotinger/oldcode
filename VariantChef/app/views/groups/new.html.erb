@@ -1,0 +1,52 @@
+<% provide(:title, 'Creating a new Group') %>
+
+<section id="new-group">
+	<% if user_signed_in? %>
+		<div class="row">
+			<div class="col-lg-12">
+
+				<%= form_for(@group) do |f| %>
+					<fieldset>
+						<legend>New Group</legend>
+
+					  	<div class="row">
+					  		<div class="col-lg-4">
+					  			<div class="form-group">
+					  				<%= f.label :title, "Name:" %>
+					  				<%= f.text_field :title, autofocus: true, placeholder: "Name", class: 'form-control' %>
+					  			</div>
+					  		</div>
+					  	</div>
+
+					  	<div class="row">
+					  		<div class="col-lg-4">
+					  			<div class="form-group">
+					  				<%= f.label :description, "Description: " %>
+					  				<%= f.text_field :description, placeholder: "Description", class: 'form-control' %>
+					  			</div>
+					  		</div>
+					  	</div>
+
+						<div class="row">
+							<div class="col-lg-4">
+								<div class="form-group">
+									<%= f.submit "Create Group", class: 'btn btn-large btn-primary' %>
+								</div>
+							</div>
+						</div>
+
+					</fieldset>
+				<% end %>
+			</div>
+		</div>
+
+	<% else %>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="bg-warning">You must <%= link_to "Sign In", new_session_path(resource_name) %> or <%= link_to "Sign up", new_registration_path(resource_name) %> to create a group.
+				</div>
+			</div>
+		</div>
+	<% end %>
+		
+</section>

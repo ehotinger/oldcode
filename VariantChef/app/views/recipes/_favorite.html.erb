@@ -1,0 +1,6 @@
+<%= form_for(current_user.favorite_recipes.build(recipe_id: @recipe.id),
+             remote: true) do |f| %>
+  <%= f.hidden_field :recipe_id %>
+
+  <%= button_tag "Favorite this recipe", class: "btn btn-xs btn-primary" %>
+<% end %>

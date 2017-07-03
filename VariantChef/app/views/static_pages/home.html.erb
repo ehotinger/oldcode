@@ -1,0 +1,50 @@
+<% provide(:type_of_page, 'home') %>
+<% provide(:title, 'Recent Recipes') %>
+
+<section class="notification-header">
+	<div class="message">Feeling <i>different</i> today? Try a <%= link_to 'random recipe.', random_recipe_path %> </div>
+</section>
+
+<div class="recipes-wrapper">
+	<div class="recipes">
+		<ul class="recipes-list">
+		<% @recipes.each do |r| %>
+			<li>
+				<div class="recipe">
+					<div class="recipe-content">
+						<div class="recipe-image">
+							<% if r.recipe_assets.count > 0 %>
+								<% r.recipe_assets.take(1).each do |a| %>
+									<%= link_to user_recipe_path(r.user.user_name, r) do %>
+									<%= image_tag a.picture.url(:medium), :alt => 'Missing Picture' %>
+									<% end %>
+								<% end %>	
+
+							<% else %>
+								<%= link_to user_recipe_path(r.user.user_name, r) do %>
+									<%= image_tag 'missing-recipe.png' %>
+								<% end %>
+							<% end %>
+						</div>
+
+						<div class="recipe-info">
+							<div class="recipe-title"><%= content_tag(:span, r.title) %></div>
+
+							<div class="recipe-author">
+								<%= link_to r.user.full_name, user_path(r.user.user_name), :title => "Visit #{r.user.user_name}'s profile" %>
+							</div>
+						</div>
+
+						<div class="recipe-stats">
+			    			<span class="glyphicon glyphicon-heart"></span>
+							<span><%= r.favorited_by.count %></span>
+			  			</div>
+			  		</div>
+		  		</div>
+    		</li>
+		<% end %>
+		</ul>
+	</div>
+</div>
+
+<div class="clearfix"></div>

@@ -1,0 +1,66 @@
+<%= form_for @recipecontent, :url => user_recipe_recipecontents_path, :html => { :multipart => true, :method => :post }  do |f| %>
+
+  <%= f.hidden_field :user_id, value: @user.id %>
+  <%= f.hidden_field :recipe_id, value: @recipe.id %>
+
+  <% if @recipecontent.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@recipecontent.errors.count, "error") %> prohibited this recipe content from being saved:</h2>
+        <ul>
+          <% @recipecontent.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="form-group">
+        <%= f.label :ingredients, "Ingredients:" %>
+        <%= f.text_area :ingredients, placeholder: 'Chicken, Tomatoes, Pasta, ...', class: 'form-control' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="form-group">
+        <%= f.label :directions, "Directions:" %>
+        <%= f.text_area :directions, placeholder: 'Boil the pasta, Mince the chicken, Saute the onions, ...', class: 'form-control' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="form-group">
+        <%= f.label :cook_time, "Cook Time (in minutes):" %>
+        <%= f.number_field :cook_time, placeholder: '0', class: 'form-control' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="form-group">
+        <%= f.label :prep_time, "Prep Time (in minutes):" %>
+        <%= f.number_field :prep_time, placeholder: '0', class: 'form-control' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="form-group">
+        <%= f.submit "Update Recipe", class: 'btn btn-large btn-primary' %>
+      </div>
+    </div>
+  </div>
+  
+<% end %>
+
+<div id="go-back-to-recipe-btn">
+  <%= link_to "Go back to the recipe's details", user_recipe_path(@user.slug, @recipe.slug), class: 'btn btn-xs btn-info' %>
+  <i>Any changes will not be saved</i>
+</div>

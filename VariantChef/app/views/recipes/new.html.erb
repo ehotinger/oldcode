@@ -1,0 +1,53 @@
+<% provide(:title, 'Create a new Recipe!') %>
+
+<section id="new-recipe">
+	<% if @recipe.errors.any? %>
+	  <div id="error_explanation">
+	    <h2><%= pluralize(@recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
+
+	    <ul>
+	    <% @recipe.errors.full_messages.each do |message| %>
+	      <li><%= message %></li>
+	    <% end %>
+	    </ul>
+	  </div>
+	<% end %>
+
+	<div class="row">
+		<div class="col-lg-12">
+			<%= form_for @recipe do |f| %>
+				<fieldset>
+					<legend>Create a New Recipe</legend>
+
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="form-group">
+								<%= f.label :title, "Title:" %>
+								<%= f.text_field :title, placeholder: 'Title', class: 'form-control' %>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="form-group">
+								<%= f.label :short_description, "A brief description:" %>
+								<%= f.text_area(:short_description, placeholder: "A brief description", class: 'form-control') %>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="actions">
+								<%= f.submit 'Create Recipe!', class: 'btn btn-large btn-primary' %>
+							</div>
+						</div>
+					</div>
+
+				</fieldset>
+
+			<% end %>
+		</div>
+	</div>
+</section>

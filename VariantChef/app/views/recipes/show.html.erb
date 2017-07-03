@@ -1,0 +1,194 @@
+<% provide(:title, "#{@recipe.title} by #{@user.slug}") %>
+
+<div class="col-lg-4">
+	<% if @recipe.recipe_assets.present? %>
+		<section id="recipe-pictures">
+			<% @recipe.recipe_assets.take(1).each do |a| %>
+				<%= image_tag a.picture.url(:medium), class: 'img-thumbnail' %>
+			<% end %>	
+		</section>
+
+	<% else %>
+		<%= image_tag 'missing-recipe.png', class: 'img-thumbnail' %>
+	<% end %>
+</div>
+
+<div class="col-lg-4">
+	<div class="recipe-show-title">
+		<%= @recipe.title %> by <%= link_to @user.slug, user_path(@user.slug), class: 'recipe-show-author' %>	
+		<div class="recipe-show-short-description">
+			<%= @recipe.short_description %>
+		</div>
+	</div>
+
+	<div class="recipe-show-favorites">
+		<%= "Favorited by #{get_recipe_favorited_by_format(@recipe)}" %>
+
+		<% if @recipe.favorited_by.count > 0 %>
+			<ul class="media-list">	
+				<li class="media recipe-show-favorited-by">
+					<% @recipe.favorited_by_users.each do |u| %>
+						<% if u.avatar? %>
+							<%= link_to user_path(u), class: 'pull-left' do %>
+								<%= image_tag u.avatar.url(:small), title: "Visit #{u.full_name}'s profile", class: 'media-object img-thumbnail' %>
+							<% end %>
+							
+						<% else %>
+							<%= link_to user_path(u), class: 'pull-left' do %>
+								<%= image_tag 'missing.png', title: "Visit #{u.full_name}'s profile", class: 'media-object img-thumbnail' %>
+							<% end %>
+						<% end %>
+					<% end %>
+				</li>
+			</ul>
+		<% end %>
+	</div>
+
+	
+	<% if user_signed_in? %>
+
+		<div class="row">
+			<div class="col-lg-6">
+				<div id="favorite-form">
+					<% if current_user.favorited?(@recipe) %>
+						<%= render 'unfavorite' %>
+					<% else %> 
+						<%= render 'favorite' %>
+					<% end %>
+				</div>	
+			</div>
+
+			<div class="col-lg-6">
+				<% if current_user != @recipe.user %>
+					<%= form_for(@recipe, url: recipe_fork_path(@recipe.id), html: { method: :post }) do |f| %>
+					  <%= button_tag class: "btn btn-xs btn-info" do %>
+					  Fork this recipe
+					  <span class="glyphicon glyphicon-cutlery"></span> 
+					  <% end %>
+					<% end %>
+				<% end %>
+			</div>
+		</div>
+	<% end %>
+
+	<% if @recipe.recipe_tags.present? %>
+		<section id="recipe-tags">
+			<div class="recipe-tags-title">Related Tags</div>
+			<% @recipe.recipe_tags.each do |t| %>
+				<%= link_to recipe_tag_path(t.title), :class => 'no-text-decoration' do %>
+					<%= content_tag :span, t.title, :title => "Find recipes tagged as #{t.title}", :class => 'recipe-tag' %></li>
+				<% end %>
+			<% end %>
+		</section>
+	<% end %>	
+
+	<% if @recipecontent.present? %>
+		<section id="cook-and-prep-times">
+			<div class="col-lg-6">
+				<h4>Prep Time</h4>
+				<% if @recipecontent.present? && @recipecontent.prep_time %>
+					<div class="time-circle"><%= get_time_conversion(@recipecontent.prep_time) %></div>
+				<% else %>
+					<div class="time-circle"><%= get_time_conversion(0.minutes) %></div>
+				<% end %>
+			</div>
+
+			<div class="col-lg-6">
+				<h4>Cook Time</h4>
+				<% if @recipecontent.present? && @recipecontent.cook_time %>
+					<div class="time-circle"><%= get_time_conversion(@recipecontent.cook_time) %></div>
+				<% else %>
+					<div class="time-circle"><%= get_time_conversion(0.minutes) %></div>
+				<% end %>
+			</div>
+		</section>
+	<% end %>
+</div>
+
+<div class="col-lg-4">
+		
+	<section id="recipe-show-ingredients">
+		<div class="recipe-show-ingredients-title">Ingredients:</div>
+			<% if @recipecontent.present? && @recipecontent.ingredients %>
+				<div class="recipe-show-ingredients-content">
+				<ul class="list-unstyled">
+					<% @recipecontent.ingredients.split(',').each do |i| %>
+						<li><%= i.strip %></li>
+					<% end %>
+				</ul>
+					
+				</div>
+			<% end %>
+	</section>
+
+	<section id="recipe-show-directions">
+		<div class="recipe-show-directions-title">Directions:</div>
+			<% if @recipecontent.present? && @recipecontent.directions %>
+				<div class="recipe-show-directions-content">
+				<ul class="list-unstyled">
+					<% @recipecontent.directions.split(',').each do |i| %>
+						<li><%= i.strip %></li>
+					<% end %>
+				</ul>
+					
+				</div>
+			<% end %>
+	</section>
+</div>
+
+<div class="col-lg-12">
+	<% if @user == current_user %>
+		<h4>Want to Spice Up Your Recipe?</h4>
+		<%= link_to 'Edit Tags', user_recipe_tags_path(@user.slug, @recipe), class: 'btn btn-large btn-info' %>
+		<%= link_to 'Edit Instructions', user_recipe_content_path(@user.slug, @recipe), class: 'btn btn-large btn-info'  %>
+		<%= link_to 'Edit Pictures', user_recipe_pictures_path(@user.slug, @recipe), class: 'btn btn-large btn-info' %>
+		<%= link_to 'Delete Recipe', user_recipe_path(@user, @recipe), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-large btn-danger' %>
+	<% end %>
+</div>
+
+<div class="col-lg-12">
+	
+	<div class="recipe-comments">
+		<% if @recipe.recipe_comments.present? %>
+			<h4>Recent comments about this recipe:</h4>
+			<ul class="media-list">
+			<% @recipe.newest_recipe_comments.each do |f| %>		
+				<li class="media">		    
+					<% if f.user.avatar? %>
+						<%= link_to user_path(f.user), class: 'pull-left' do %>
+							<%= image_tag f.user.avatar.url(:small), class: 'media-object follow-avatar-image img-thumbnail' %>
+						<% end %>
+						
+					<% else %>
+						<%= link_to user_path(f.user), class: 'pull-left' do %>
+							<%= image_tag 'missing.png', class: 'media-object follow-avatar-image img-thumbnail' %>
+						<% end %>
+					<% end %>
+				  
+				  <div class="media-body">
+				    <h4 class="media-heading">
+				    	<%= f.message %>
+				    </h4>
+
+				    <%= content_tag(:span, class: 'recipe-comment-message') do %>
+				    	<span>By</span>
+				    	<%= link_to f.user.full_name, user_path(f.user) %> 
+				    	<span><%= "on #{f.created_at.strftime("%B %d, %Y")}" %></span>
+				    <% end %>
+				  </div>
+				</li>
+			<% end %>
+			</ul>
+		<% end %>
+
+	</div>
+
+	<% if user_signed_in? %>
+		<%= render 'comment' %>
+	<% else %>
+		<small>
+		Want to post your own comments? <%= link_to "Sign In", new_session_path(resource_name) %> or <%= link_to "Sign Up", new_registration_path(resource_name) %>
+		</small>
+	<% end %>
+
+</div>

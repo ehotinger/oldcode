@@ -1,0 +1,107 @@
+<% provide(:title, 'Sign Up') %>
+
+<section id="sign-up">
+	<%= devise_error_messages! %>
+	<div class="row">
+		<div class="col-lg-12">
+			<%= form_for(resource, :as => resource_name, :html => { :multipart => true }, :url => registration_path(resource_name)) do |f| %>
+			
+				<fieldset>
+					<legend>Registration</legend>
+
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="form-group">
+								<%= f.label :first_name, "First Name:" %>
+							  	<%= f.text_field :first_name, autofocus: true, placeholder: 'First Name', class: 'form-control' %>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="form-group">
+								<%= f.label :last_name, "Last Name:" %>
+							  	<%= f.text_field :last_name, placeholder: 'Last Name', class: 'form-control' %>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="form-group">
+								<%= f.label :user_name, "Username:" %>
+							  	<%= f.text_field :user_name, placeholder: 'Username', pattern: '[a-z0-9](?:-?[a-z0-9])*', title: 'The Username must be a combination of ONLY lowercase letters and numbers without spaces.', class: 'form-control' %>
+							  	<small class="text-danger">Username must be a combination of ONLY lowercase letters and numbers without spaces.</small>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="form-group">
+								<%= f.label :email, "Email:" %>
+							 	<%= f.email_field :email, placeholder: 'Email', class: 'form-control' %>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="form-group">
+								<%= f.label :password, "Password:" %>
+							 	<%= f.password_field :password, placeholder: 'Password', class: 'form-control' %>
+							 	<small class="text-danger">Password must be eight characters or longer.</small>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="form-group">
+								<%= f.label :password_confirmation, "Password Confirmation:" %>
+								<%= f.password_field :password_confirmation, placeholder: 'Repeat password', class: 'form-control' %>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="form-group">
+								<%= f.label 'Avatar' %>
+								<%= f.file_field :avatar %>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="form-group">
+								<%= f.submit 'Sign Up!', class: 'btn btn-large btn-primary' %>
+							</div>
+						</div>
+					</div>			
+
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="form-group">
+								<small>By registering, you understand and agree to our <%= link_to 'Terms of Service', terms_path %>.</small>
+							</div>
+						</div>
+					</div>		
+
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="alternative-links">
+								<div class="form-group">
+									<small>Looking to <%= link_to "Sign In", new_session_path(resource_name) %> instead? Or, <%= link_to "Forgot Your Password?", new_password_path(resource_name) %></small>
+								</div>
+							</div> 
+						</div>
+					</div>
+				
+				</fieldset>
+			<% end %>
+		</div>
+	</div>
+</section>
